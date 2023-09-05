@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "faTlGBEyiPsHwgXn5WfonwmPpTBB8F4p3Uspe7gYlusJiU98HckL2lIDx9GFzubHbLLDZEVV/sPHdIks3MrOLA==",
+  "dgSpecHash": "/5yZk2VkAaa1sKjae1PUNGK/0QRXdGtXcGoViBdaFrTyBJF8xckOEVRFGZjWvPl9j/fSqFXTUHypx8jwXqtzzA==",
   "success": true,
-  "projectFilePath": "C:\\developer\\c#\\eCommerceDAPPER.API\\eCommerceDAPPER.API\\eCommerceDAPPER.API.csproj",
+  "projectFilePath": "C:\\developer\\c#\\eCommerceDapper.API\\eCommerceDAPPER.API\\eCommerceDAPPER.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\guilh\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\guilh\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
