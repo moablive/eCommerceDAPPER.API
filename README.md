@@ -17,4 +17,5 @@ docker run -d
 CREATE database eCommerceDAPPER
 use eCommerceDAPPER
 
-rode os SCRIPTS .sql no DB Criado
+rode os SCRIPTS 
+createTable.sql | insertTable.sql | procedure.sql 
