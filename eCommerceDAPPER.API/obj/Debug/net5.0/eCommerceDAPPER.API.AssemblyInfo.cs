@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("eCommerceDAPPER.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ae80a339c26c79a4e74f29dedfcd78a00085be9b")]
 [assembly: System.Reflection.AssemblyProductAttribute("eCommerceDAPPER.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("eCommerceDAPPER.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

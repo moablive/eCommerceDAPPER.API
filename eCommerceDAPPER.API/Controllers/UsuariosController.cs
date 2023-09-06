@@ -30,7 +30,7 @@ namespace eCommerceDAPPER.API.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_repository.Get()); //HTTP - 200 - ok 
+            return Ok(_repository.Get()); //HTTP - 200 
         }
 
         [HttpGet("{id}")]
@@ -62,7 +62,7 @@ namespace eCommerceDAPPER.API.Controllers
         public IActionResult Delete(int id)
         {
             _repository.Delete(id);
-            return Ok();
+            return Ok("Registro deletado com sucesso.");
         }
     }
 }

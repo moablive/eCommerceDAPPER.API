@@ -1,54 +1,79 @@
 ﻿using eCommerceDAPPER.API.Models;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using MySql.Data.MySqlClient;
+using Dapper;
 
 namespace eCommerceDAPPER.API.Repositories
 {
     public class UsuarioRepository : IUsuarioRepository
     {
-        private static List<Usuario> _db = new List<Usuario>()
-        {
-            new Usuario() { Id = 1, Nome = "Guilherme", Email = "guilherme@teste.com" },
-            new Usuario() { Id = 2, Nome = "Pedro", Email = "pedro@teste.com" },
-            new Usuario() { Id = 3, Nome = "Jesica", Email = "jesica@teste.com" }
-        };
 
+        private IDbConnection _connection;
+
+        //Construtor
+        public UsuarioRepository()
+        {
+            _connection = new MySqlConnection("Server=localhost;Port=3306;Database=eCommerceDAPPER;Uid=root;Pwd=1234;");
+        }
+        /// <summary>
+        /// GET TODOS USUARIOS
+        /// </summary>
+        /// <returns></returns>
         public List<Usuario> Get()
         {
-            return _db;
+            return _connection.Query<Usuario>("SELECT * FROM Usuarios").ToList();
         }
 
+        /// <summary>
+        /// GET USUARIO POR ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Usuario Get(int id)
         {
-            return _db.FirstOrDefault(i => i.Id == id);
+            return _connection.QuerySingleOrDefault<Usuario>("SELECT * FROM Usuarios WHERE Id = @Id", new {Id = id});
         }
 
+        /// <summary>
+        /// INSERT USUARIO
+        /// </summary>
+        /// <param name="usuario"></param>
         public void Insert(Usuario usuario)
         {
-            var ultimoUsuario = _db.LastOrDefault();
+            string sqlINSERT = "INSERT INTO Usuarios(Nome, Email, Sexo, RG, CPF, SituacaoCadastro, DataCadastro) " +
+                               "VALUES(@Nome, @Email, @Sexo, @RG, @CPF, @SituacaoCadastro, @DataCadastro); " +
+                               "SELECT LAST_INSERT_ID();";
 
-            if (ultimoUsuario == null)
-            {
-                usuario.Id = 1;
-            }
-            else
-            {
-                usuario.Id = ultimoUsuario.Id;
-                usuario.Id++;
-            }
-
-            _db.Add(usuario);
+            usuario.Id = _connection.Query<int>(sqlINSERT, usuario).Single();
         }
 
+        /// <summary>
+        /// UPDADE USUARIO
+        /// </summary>
+        /// <param name="usuario"></param>
         public void Update(Usuario usuario)
         {
-            _db.Remove(_db.FirstOrDefault(i => i.Id == usuario.Id));
-            _db.Add(usuario);
+            string sqlUPDATE = "UPDATE Usuarios SET " +
+                               "Nome = @Nome, Email = @Email," +
+                               "Sexo = @Sexo, RG = @RG," +
+                               "CPF = @CPF, SituacaoCadastro = @SituacaoCadastro," +
+                               "DataCadastro = @DataCadastro " +
+                               "WHERE Id = @Id";
+
+            _connection.Execute(sqlUPDATE, usuario);
         }
 
+        /// <summary>
+        /// DELETE USUARIO POR ID
+        /// </summary>
+        /// <param name="id"></param>
         public void Delete(int id)
         {
-            _db.Remove(_db.FirstOrDefault(i => i.Id == id));
+            _connection.QuerySingleOrDefault<Usuario>("DELETE FROM Usuarios WHERE Id = @Id", new { Id = id });
         }
+
+
     }
 }
