@@ -19,3 +19,7 @@ use eCommerceDAPPER
 
 rode os SCRIPTS 
 createTable.sql | insertTable.sql | procedure.sql 
+
+
+Para TESTE COM INSOMNIA
+https://github.com/moablive/eCommerceDAPPER.INSOMNIA
