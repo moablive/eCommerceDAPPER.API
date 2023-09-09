@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5+E/CXE2UVCjd9CtRIfsOyZFnB4qN22zJvvNmJvdimubzsGGWpCERcYLs406tRutFzQFBz5a0r+0gDHBFaDA6Q==",
+  "dgSpecHash": "B1XD6uTucCaXvp4AocbujFOx3gzv2iHWthL1OEbPtXv/AtjhMdCEoqqZ1BMB7MLD7ViBwqo+19ueTByN3y2rrA==",
   "success": true,
-  "projectFilePath": "C:\\developer\\c#\\eCommerceDAPPER.API\\eCommerceDAPPER.API\\eCommerceDAPPER.API.csproj",
+  "projectFilePath": "C:\\developer\\c#\\eCommerceDapper.API\\eCommerceDAPPER.API\\eCommerceDAPPER.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\guilh\\.nuget\\packages\\dapper\\2.0.151\\dapper.2.0.151.nupkg.sha512",
     "C:\\Users\\guilh\\.nuget\\packages\\google.protobuf\\3.21.9\\google.protobuf.3.21.9.nupkg.sha512",
