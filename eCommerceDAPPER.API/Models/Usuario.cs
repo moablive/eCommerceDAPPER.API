@@ -16,8 +16,7 @@ namespace eCommerceDAPPER.API.Models
         public DateTimeOffset DataCadastro { get; set; }
 
         //RELACIONAMENTO
-        public Contato contato { get; set; }
-
+        public Contato Contato { get; set; }
         public ICollection<EnderecoEntrega> EnderecosEntrega { get; set; }
         public ICollection<Departamento> Departamentos { get; set; }
     }
