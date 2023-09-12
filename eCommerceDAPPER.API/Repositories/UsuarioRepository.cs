@@ -25,7 +25,47 @@ namespace eCommerceDAPPER.API.Repositories
         /// <returns></returns>
         public List<Usuario> Get()
         {
-            return _connection.Query<Usuario>("SELECT * FROM Usuarios").ToList();
+            Dictionary<int, Usuario> usuariosDict = new Dictionary<int, Usuario>();
+            string sqlCMD = "SELECT U.*, C.*, EE.*, D.* " +
+                            "FROM Usuarios AS U " +
+                            "LEFT JOIN Contatos AS C ON C.UsuarioId = U.Id " +
+                            "LEFT JOIN EnderecosEntrega AS EE ON EE.UsuarioId = U.Id " +
+                            "LEFT JOIN UsuariosDepartamentos AS UD ON UD.UsuarioId = U.Id " +
+                            "LEFT JOIN Departamentos AS D ON UD.DepartamentoId = D.Id";
+
+            _connection.Query<Usuario, Contato, EnderecoEntrega, Departamento, Usuario>(
+                sqlCMD,
+                (usuario, contato, enderecoEntrega, departamento) =>
+                {
+                    if (!usuariosDict.TryGetValue(usuario.Id, out var existingUser))
+                    {
+                        existingUser = usuario;
+                        existingUser.Departamentos = new List<Departamento>();
+                        existingUser.EnderecosEntrega = new List<EnderecoEntrega>();
+                        existingUser.Contato = contato;
+                        usuariosDict.Add(existingUser.Id, existingUser);
+                    }
+
+                    // Verifique se enderecoEntrega (ee) não é nulo antes de acessá-lo
+                    if (enderecoEntrega != null)
+                    {
+                        if (!existingUser.EnderecosEntrega.Any(ee => ee.Id == enderecoEntrega.Id))
+                        {
+                            existingUser.EnderecosEntrega.Add(enderecoEntrega);
+                        }
+                    }
+
+                    if (!existingUser.Departamentos.Any(d => d.Id == departamento.Id))
+                    {
+                        existingUser.Departamentos.Add(departamento);
+                    }
+
+                    return usuario;
+                },
+                splitOn: "Id"
+            );
+
+            return usuariosDict.Values.ToList();
         }
 
         /// <summary>
@@ -35,18 +75,47 @@ namespace eCommerceDAPPER.API.Repositories
         /// <returns></returns>
         public Usuario Get(int id)
         {
-            return _connection.Query<Usuario, Contato, Usuario>(
-                "SELECT * FROM Usuarios AS u " +
-                    "LEFT JOIN Contatos AS c " +
-                    "ON c.UsuarioId = u.Id " +
-                    "WHERE u.Id = @Id",
+            Dictionary<int, Usuario> usuariosDict = new Dictionary<int, Usuario>();
+            string sqlCMD = "SELECT U.*, C.*, EE.*, D.* " +
+                            "FROM Usuarios AS U " +
+                            "LEFT JOIN Contatos AS C ON C.UsuarioId = U.Id " +
+                            "LEFT JOIN EnderecosEntrega AS EE ON EE.UsuarioId = U.Id " +
+                            "LEFT JOIN UsuariosDepartamentos AS UD ON UD.UsuarioId = U.Id " +
+                            "LEFT JOIN Departamentos AS D ON UD.DepartamentoId = D.Id " +
+                            "WHERE U.Id = @Id";
 
-                (usuario, contato) =>
+            _connection.Query<Usuario, Contato, EnderecoEntrega, Departamento, Usuario>(
+                sqlCMD,
+                (usuario, contato, enderecoEntrega, departamento) =>
                 {
-                    usuario.Contato = contato;
+                    if (!usuariosDict.TryGetValue(usuario.Id, out var existingUser))
+                    {
+                        existingUser = usuario;
+                        existingUser.Departamentos = new List<Departamento>();
+                        existingUser.EnderecosEntrega = new List<EnderecoEntrega>();
+                        existingUser.Contato = contato;
+                        usuariosDict.Add(existingUser.Id, existingUser);
+                    }
+
+                    // Verifique se enderecoEntrega (ee) não é nulo antes de acessá-lo
+                    if (enderecoEntrega != null)
+                    {
+                        if (!existingUser.EnderecosEntrega.Any(ee => ee.Id == enderecoEntrega.Id))
+                        {
+                            existingUser.EnderecosEntrega.Add(enderecoEntrega);
+                        }
+                    }
+
+                    if (!existingUser.Departamentos.Any(d => d.Id == departamento.Id))
+                    {
+                        existingUser.Departamentos.Add(departamento);
+                    }
+
                     return usuario;
                 },
-                new { Id = id }).SingleOrDefault();
+               new { Id = id});
+
+            return usuariosDict.Values.SingleOrDefault();
         }
 
         /// <summary>
@@ -59,8 +128,8 @@ namespace eCommerceDAPPER.API.Repositories
             var transaction = _connection.BeginTransaction(); //transaction
             try
             {
-                string sqlUsuario = "INSERT INTO Usuarios(Nome, Email, Sexo, RG, CPF, SituacaoCadastro, DataCadastro) " +
-                                    "VALUES(@Nome, @Email, @Sexo, @RG, @CPF, @SituacaoCadastro, @DataCadastro);";
+                string sqlUsuario = "INSERT INTO Usuarios(Nome, Email, Sexo, RG, CPF, NomeMae, SituacaoCadastro, DataCadastro) " +
+                                    "VALUES(@Nome, @Email, @Sexo, @RG, @CPF, @NomeMae, @SituacaoCadastro, @DataCadastro);";
                 _connection.Execute(sqlUsuario, usuario, transaction);
 
                 // Recupera o ID gerado para o usuário
@@ -77,6 +146,22 @@ namespace eCommerceDAPPER.API.Repositories
 
                     // Recupera o ID gerado para o contato
                     usuario.Contato.ID = _connection.Query<int>("SELECT LAST_INSERT_ID();", null, transaction).Single();
+                }
+
+                if (usuario.EnderecosEntrega != null && usuario.EnderecosEntrega.Count > 0)
+                {
+                    foreach (var enderecoEntrega in usuario.EnderecosEntrega)
+                    { 
+                        // Recupera o ID gerado
+                        enderecoEntrega.UsuarioId = usuario.Id;
+
+                        string sqlEndereco = "INSERT INTO EnderecosEntrega " +
+                                             "(UsuarioId, NomeEndereco, CEP, Estado, Cidade, Bairro, Endereco, Numero, Complemento) " +
+                                             "VALUES " +
+                                             "(@UsuarioId, @NomeEndereco, @CEP, @Estado, @Cidade, @Bairro, @Endereco, @Numero, @Complemento);";
+
+                        _connection.Execute(sqlEndereco, enderecoEntrega, transaction);
+                    }
                 }
 
                 transaction.Commit();
@@ -126,7 +211,26 @@ namespace eCommerceDAPPER.API.Repositories
                                         "Celular = @celular WHERE Id = @Id";
                     _connection.Execute(sqlContato, usuario.Contato, transaction);
                 }
-                
+
+                string sqlDeletarEnderecosEntrega = "DELETE FROM EnderecosEntrega WHERE UsuarioId = @Id";
+                _connection.Execute(sqlDeletarEnderecosEntrega, usuario, transaction);
+
+                if (usuario.EnderecosEntrega != null && usuario.EnderecosEntrega.Count > 0)
+                {
+                    foreach (var enderecoEntrega in usuario.EnderecosEntrega)
+                    {
+                        // Recupera o ID gerado
+                        enderecoEntrega.UsuarioId = usuario.Id;
+
+                        string sqlEndereco = "INSERT INTO EnderecosEntrega " +
+                                             "(UsuarioId, NomeEndereco, CEP, Estado, Cidade, Bairro, Endereco, Numero, Complemento) " +
+                                             "VALUES " +
+                                             "(@UsuarioId, @NomeEndereco, @CEP, @Estado, @Cidade, @Bairro, @Endereco, @Numero, @Complemento);";
+
+                        _connection.Execute(sqlEndereco, enderecoEntrega, transaction);
+                    }
+                }
+
                 transaction.Commit();
             }
             catch (Exception)
@@ -152,7 +256,7 @@ namespace eCommerceDAPPER.API.Repositories
         /// <param name="id"></param>
         public void Delete(int id)
         {
-            //ON DELETE CASCADE
+            //DELETE CASCADE
             _connection.QuerySingleOrDefault<Usuario>("DELETE FROM Usuarios WHERE Id = @Id", new { Id = id });
         }
     }
