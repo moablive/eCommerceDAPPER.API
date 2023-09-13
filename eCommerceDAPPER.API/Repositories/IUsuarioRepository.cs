@@ -3,7 +3,7 @@ using eCommerceDAPPER.API.Models;
 
 namespace eCommerceDAPPER.API.Repositories
 {
-    interface IUsuarioRepository
+    public interface IUsuarioRepository
     {
         public List<Usuario> Get();
         public Usuario Get(int id);

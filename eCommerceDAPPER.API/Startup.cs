@@ -1,3 +1,4 @@
+using eCommerceDAPPER.API.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +27,7 @@ namespace eCommerceDAPPER.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

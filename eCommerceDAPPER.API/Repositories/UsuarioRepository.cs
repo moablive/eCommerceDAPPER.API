@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using MySql.Data.MySqlClient;
 using Dapper;
+using Microsoft.Extensions.Configuration;
 
 namespace eCommerceDAPPER.API.Repositories
 {
@@ -12,11 +13,12 @@ namespace eCommerceDAPPER.API.Repositories
     {
 
         private IDbConnection _connection;
+        private IConfiguration _configuration;
 
-        //Construtor
-        public UsuarioRepository()
+        public UsuarioRepository(IConfiguration configuration)
         {
-            _connection = new MySqlConnection("Server=localhost;Port=3306;Database=eCommerceDAPPER;Uid=root;Pwd=1234;");
+            _configuration = configuration;
+            _connection = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection"));
         }
 
         /// <summary>

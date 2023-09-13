@@ -1,17 +1,16 @@
 ﻿using eCommerceDAPPER.API.Models;
 using eCommerceDAPPER.API.Repositories;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eCommerceDAPPER.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/contrib/usuarios")]
     [ApiController]
-    public class UsuariosController : ControllerBase
+    public class UsuariosContribController : ControllerBase
     {
         private IUsuarioRepository _repository;
 
-        public UsuariosController(IUsuarioRepository repository)
+        public UsuariosContribController(IUsuarioRepository repository)
         {
             _repository = repository;
         }
