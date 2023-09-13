@@ -13,7 +13,6 @@
         public string Numero { get; set; }
         public string Complemento { get; set; }
 
-
         //RELACIONAMENTO
         public Usuario usuario { get; set; }
     }

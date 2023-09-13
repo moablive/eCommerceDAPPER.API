@@ -5,18 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace eCommerceDAPPER.API.Controllers
 {
-    /*
-     * CRUD
-     * - GET => obter a lista de usuarios.
-     * - GET => obter o usuario passando o id
-     * - POST => Cadastrar um usuario
-     * - PUT Atualizar um usuario
-     * - DELETE remover um usuario
-     *
-     * www.minhaapi.com/api/Usuarios
-     * www.minhaapi.com/api/Usuarios/1
-     */
-
     [Route("api/[controller]")]
     [ApiController]
     public class UsuariosController : ControllerBase
@@ -27,12 +15,21 @@ namespace eCommerceDAPPER.API.Controllers
             _repository = new UsuarioRepository();
         }
 
+        /// <summary>
+        /// GET obter a lista de usuarios.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Get()
         {
             return Ok(_repository.Get()); //HTTP - 200 
         }
 
+        /// <summary>
+        /// GET obter o usuario passando o id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public IActionResult GetID(int id)
         {
@@ -44,6 +41,11 @@ namespace eCommerceDAPPER.API.Controllers
             return Ok(usuario);
         }
 
+        /// <summary>
+        /// POST Cadastrar um usuario
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Insert([FromBody] Usuario usuario)
         {
@@ -51,6 +53,11 @@ namespace eCommerceDAPPER.API.Controllers
             return Ok(usuario);
         }
 
+        /// <summary>
+        /// PUT Atualizar um usuario
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         [HttpPut]
         public IActionResult Update([FromBody] Usuario usuario)
         {
@@ -58,6 +65,11 @@ namespace eCommerceDAPPER.API.Controllers
             return Ok(usuario);
         }
 
+        /// <summary>
+        /// DELETE remover um usuario
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
