@@ -1,16 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using eCommerceDAPPER.API.Models;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
+using Dapper.Contrib.Extensions;
 
 namespace eCommerceDAPPER.API.Repositories
 {
     public class UsuariosContribRepository : IUsuarioRepository
     {
         
-        private IDbConnection _connection;
-        private IConfiguration _configuration;
+        private readonly IDbConnection _connection;
+        private readonly IConfiguration _configuration;
 
         public UsuariosContribRepository(IConfiguration configuration)
         {
@@ -18,29 +21,30 @@ namespace eCommerceDAPPER.API.Repositories
             _connection = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection"));
         }
 
+
         public List<Usuario> Get()
         {
-            throw new System.NotImplementedException();
+            return _connection.GetAll<Usuario>().ToList();
         }
 
         public Usuario Get(int id)
         {
-            throw new System.NotImplementedException();
+            return _connection.Get<Usuario>(id);
         }
 
         public void Insert(Usuario usuario)
         {
-            throw new System.NotImplementedException();
+            usuario.Id = Convert.ToInt32(_connection.Insert(usuario));
         }
 
         public void Update(Usuario usuario)
         {
-            throw new System.NotImplementedException();
+            _connection.Update(usuario);
         }
 
         public void Delete(int id)
         {
-            throw new System.NotImplementedException();
+            _connection.Delete(Get(id));
         }
     }
 }

@@ -42,7 +42,7 @@ namespace eCommerceDAPPER.API.Controllers
         }
 
         /// <summary>
-        /// POST Cadastrar um usuario
+        /// POST Cadastrar usuario
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
@@ -66,7 +66,7 @@ namespace eCommerceDAPPER.API.Controllers
         }
 
         /// <summary>
-        /// DELETE remover um usuario
+        /// DELETE usuario
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

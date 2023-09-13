@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dapper.Contrib.Extensions;
 
 namespace eCommerceDAPPER.API.Models
 {
+    [Table("Usuarios")]
     public class Usuario
     {
+        [Key]
         public int Id { get; set; }
         public string Nome { get; set; }
         public string Email { get; set; }

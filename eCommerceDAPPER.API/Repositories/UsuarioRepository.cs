@@ -12,8 +12,8 @@ namespace eCommerceDAPPER.API.Repositories
     public class UsuarioRepository : IUsuarioRepository
     {
 
-        private IDbConnection _connection;
-        private IConfiguration _configuration;
+        private readonly IDbConnection _connection;
+        private readonly IConfiguration _configuration;
 
         public UsuarioRepository(IConfiguration configuration)
         {
