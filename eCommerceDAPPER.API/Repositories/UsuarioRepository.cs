@@ -22,9 +22,8 @@ namespace eCommerceDAPPER.API.Repositories
         }
 
         /// <summary>
-        /// GET
+        /// GET obter a lista de usuarios.
         /// </summary>
-        /// <returns></returns>
         public List<Usuario> Get()
         {
             Dictionary<int, Usuario> usuariosDict = new Dictionary<int, Usuario>();
@@ -71,10 +70,9 @@ namespace eCommerceDAPPER.API.Repositories
         }
 
         /// <summary>
-        /// GET Ususario ID
+        /// GET obter o usuario passando o id
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
         public Usuario Get(int id)
         {
             Dictionary<int, Usuario> usuariosDict = new Dictionary<int, Usuario>();
@@ -99,7 +97,7 @@ namespace eCommerceDAPPER.API.Repositories
                         usuariosDict.Add(existingUser.Id, existingUser);
                     }
 
-                    // Verifique setem EnderecoEntrega
+                    // Verifique se tem EnderecoEntrega
                     if (enderecoEntrega != null)
                     {
                         if (!existingUser.EnderecosEntrega.Any(ee => ee.Id == enderecoEntrega.Id))
@@ -108,7 +106,7 @@ namespace eCommerceDAPPER.API.Repositories
                         }
                     }
 
-                    // Verifique setem Departamentos
+                    // Verifique se tem Departamentos
                     if (!existingUser.Departamentos.Any(d => d.Id == departamento.Id))
                     {
                         existingUser.Departamentos.Add(departamento);
@@ -122,7 +120,7 @@ namespace eCommerceDAPPER.API.Repositories
         }
 
         /// <summary>
-        /// INSERT Usuario
+        /// POST INSERT Usuario
         /// </summary>
         /// <param name="usuario"></param>
         public void Insert(Usuario usuario)

@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "uOZP5rOw0Xw6Dx0+KwneoWcgQBKwJaVxH98NcUe5td7PW1nx6JUEC5KC/uVpFlAwKixvoDCe8R3PE8BEsyyu5A==",
+  "dgSpecHash": "VX38uekNR1PuFo9Lj4avcP9Q4ZuG2+Fu4c1S4tv4G2A3bMJATseL9jRKitqyWmsiSUgSLeY9WxqUuRWdvZyFFA==",
   "success": true,
   "projectFilePath": "C:\\developer\\c#\\eCommerceDapper.API\\eCommerceDAPPER.API\\eCommerceDAPPER.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\guilh\\.nuget\\packages\\dapper\\2.0.151\\dapper.2.0.151.nupkg.sha512",
     "C:\\Users\\guilh\\.nuget\\packages\\dapper.contrib\\2.0.78\\dapper.contrib.2.0.78.nupkg.sha512",
+    "C:\\Users\\guilh\\.nuget\\packages\\dapper.fluentmap\\2.0.0\\dapper.fluentmap.2.0.0.nupkg.sha512",
     "C:\\Users\\guilh\\.nuget\\packages\\google.protobuf\\3.21.9\\google.protobuf.3.21.9.nupkg.sha512",
     "C:\\Users\\guilh\\.nuget\\packages\\k4os.compression.lz4\\1.3.5\\k4os.compression.lz4.1.3.5.nupkg.sha512",
     "C:\\Users\\guilh\\.nuget\\packages\\k4os.compression.lz4.streams\\1.3.5\\k4os.compression.lz4.streams.1.3.5.nupkg.sha512",

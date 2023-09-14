@@ -18,7 +18,6 @@ namespace eCommerceDAPPER.API.Controllers
         /// <summary>
         /// GET obter a lista de usuarios.
         /// </summary>
-        /// <returns></returns>
         [HttpGet]
         public IActionResult Get()
         {
@@ -29,7 +28,6 @@ namespace eCommerceDAPPER.API.Controllers
         /// GET obter o usuario passando o id
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
         [HttpGet("{id}")]
         public IActionResult GetID(int id)
         {
@@ -42,10 +40,9 @@ namespace eCommerceDAPPER.API.Controllers
         }
 
         /// <summary>
-        /// POST Cadastrar usuario
+        /// POST Cadastrar um usuario
         /// </summary>
         /// <param name="usuario"></param>
-        /// <returns></returns>
         [HttpPost]
         public IActionResult Insert([FromBody] Usuario usuario)
         {
@@ -57,7 +54,6 @@ namespace eCommerceDAPPER.API.Controllers
         /// PUT Atualizar um usuario
         /// </summary>
         /// <param name="usuario"></param>
-        /// <returns></returns>
         [HttpPut]
         public IActionResult Update([FromBody] Usuario usuario)
         {
@@ -69,7 +65,6 @@ namespace eCommerceDAPPER.API.Controllers
         /// DELETE usuario
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

@@ -56,3 +56,4 @@ C:\developer\c#\eCommerceDAPPER.API\eCommerceDAPPER.API\obj\Debug\net5.0\eCommer
 C:\developer\c#\eCommerceDAPPER.API\eCommerceDAPPER.API\obj\Debug\net5.0\eCommerceDAPPER.API.genruntimeconfig.cache
 C:\developer\c#\eCommerceDAPPER.API\eCommerceDAPPER.API\obj\Debug\net5.0\ref\eCommerceDAPPER.API.dll
 C:\developer\c#\eCommerceDapper.API\eCommerceDAPPER.API\bin\Debug\net5.0\Dapper.Contrib.dll
+C:\developer\c#\eCommerceDapper.API\eCommerceDAPPER.API\bin\Debug\net5.0\Dapper.FluentMap.dll
