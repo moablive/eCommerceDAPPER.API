@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("eCommerceDAPPER.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ba75f8a45395f1e99a5cc44b6d70146ea53e055c")]
 [assembly: System.Reflection.AssemblyProductAttribute("eCommerceDAPPER.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("eCommerceDAPPER.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
