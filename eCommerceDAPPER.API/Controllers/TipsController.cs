@@ -2,7 +2,6 @@
 using System.Data;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-
 using Microsoft.Extensions.Configuration;
 using eCommerceDAPPER.API.Models;
 using MySql.Data.MySqlClient;
